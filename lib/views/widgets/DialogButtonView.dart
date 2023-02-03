@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:calory_app/services/DataProvier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +13,18 @@ class DialogButtonView extends StatelessWidget {
         child: Text(context.watch<DataProvider>().ageButtonText));
   }
 
-  showBirthdayPicker(BuildContext context) {
-    showDatePicker(
-      context: context,
-      initialDate: context.watch<DataProvider>().initialDate,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(2023, 3),
-    ).then((value) =>
-        {if (value != null) context.read<DataProvider>().setAge(value!)});
+  Future<void> showBirthdayPicker(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    await showDatePicker(
+            context: context,
+            initialDate: initialDate,
+            firstDate: DateTime(1970),
+            lastDate: DateTime(2023, 3),
+            cancelText: "Annuler".toUpperCase(),
+            locale: const Locale('fr'))
+        .then((value) => {
+              if (value != null)
+                context.read<DataProvider>().setAge(initialDate, value)
+            });
   }
 }

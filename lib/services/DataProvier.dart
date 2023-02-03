@@ -5,20 +5,20 @@ class DataProvider with ChangeNotifier {
   String appBarTitle = "Calcul de calorie";
   String infoString =
       "Remplissez tous les champs pour obtenir votre besoin journalier en calories";
-  String ageButtonText = "";
+  String ageButtonText = "Votre âge";
+  String tailleText = "Votre taille est : ";
 
   MaterialColor appPramaryColor = Colors.grey;
   Color womanColor = Colors.white;
   Color manColor = Colors.white;
   int manOrWoman = 1;
   bool switchValue = true;
-  DateTime initialDate = DateTime.now();
-  DateTime SelectedDate = DateTime.now();
   int age = 0;
+  double taille = 0;
+  double poids = 0;
 
   DataProvider() {
     setAppColor(true);
-    setAge(SelectedDate);
   }
 
   setAppColor(bool colorType) {
@@ -45,19 +45,27 @@ class DataProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setAge(DateTime dateTime) {
-    if (dateTime.second == DateTime.now().second) {
-      age = 0;
-      ageButtonText = "Votre age";
-    } else if (dateTime.second > DateTime.now().second) {
+  setAge(DateTime initialDate, DateTime selectedDate) {
+    if (selectedDate.second >= initialDate.second) {
       age = 0;
       ageButtonText = "Date incorrecte";
     } else {
-      age = dateTime.year - initialDate.year;
-      SelectedDate = dateTime;
+      age = initialDate.year - selectedDate.year;
       ageButtonText = "Votre age est $age";
     }
 
+    notifyListeners();
+  }
+
+  setTaille(double newTaille) {
+    taille = newTaille;
+    tailleText = "Votre taille est : ${taille.toInt()}";
+
+    notifyListeners();
+  }
+
+  setPoids(double newPoids) {
+    poids = newPoids;
     notifyListeners();
   }
 }

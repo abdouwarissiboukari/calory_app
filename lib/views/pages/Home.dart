@@ -12,6 +12,13 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  late TextEditingController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +33,9 @@ class HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InfoTextView(),
-                FormCard(),
+                FormCard(
+                  controller: controller,
+                ),
               ],
             ),
           )),

@@ -1,6 +1,7 @@
 import 'package:calory_app/services/DataProvier.dart';
 import 'package:calory_app/views/pages/Home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,6 +25,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: context.watch<DataProvider>().appPramaryColor,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('fr', ''),
+        Locale('en', ''),
+      ],
       home: Home(),
     );
   }
