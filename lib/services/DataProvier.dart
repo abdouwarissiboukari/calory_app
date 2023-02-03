@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DataProvider with ChangeNotifier {
+  final String key = "calory";
   String appBarTitle = "Calcul de calorie";
   String infoString =
       "Remplissez tous les champs pour obtenir votre besoin journalier en calories";
