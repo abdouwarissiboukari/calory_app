@@ -15,8 +15,7 @@ class WeightTextField extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          hintText: "Votre poids",
-          helperText: "Entrez votre poids en kilos",
+          labelText: "Entrez votre poids en kilos",
         ),
         onChanged: (value) {
           context.read<DataProvider>().setPoids(double.parse(

@@ -1,4 +1,5 @@
 import 'package:calory_app/services/DataProvier.dart';
+import 'package:calory_app/views/widgets/CalculateButton.dart';
 import 'package:calory_app/views/widgets/CustomAppBar.dart';
 import 'package:calory_app/views/widgets/InfoTextView.dart';
 import 'package:calory_app/views/widgets/formCard.dart';
@@ -13,10 +14,17 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   late TextEditingController controller;
+
   @override
   void initState() {
     super.initState();
     controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,6 +44,7 @@ class HomeState extends State<Home> {
                 FormCard(
                   controller: controller,
                 ),
+                CalculateButton(),
               ],
             ),
           )),
