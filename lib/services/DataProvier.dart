@@ -1,8 +1,8 @@
+import 'package:calory_app/services/DataPreferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DataProvider with ChangeNotifier {
-  final String key = "calory";
   String appBarTitle = "Calcul de calorie";
   String infoString =
       "Remplissez tous les champs pour obtenir votre besoin journalier en calories";
@@ -28,7 +28,22 @@ class DataProvider with ChangeNotifier {
   DateTime initialDate = DateTime.now();
 
   DataProvider() {
-    setAppColor(true);
+    getPreferencesData();
+  }
+
+  getPreferencesData() async {
+    final initData = await DataPrefernces().getData();
+    switchValue = initData["switchValue"];
+    age = initData["age"];
+    radioGroupValue = initData["radioGroupValue"];
+    taille = initData["taille"];
+    poids = initData["poids"];
+    activite = initData["activite"];
+
+    ageButtonText = "Votre age est de $age";
+    tailleText = "Votre taille est : ${taille.toInt()} cm";
+
+    setAppColor(switchValue);
   }
 
   setAppColor(bool colorType) {
@@ -99,6 +114,16 @@ class DataProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  setPreferencesData() async {
+    await DataPrefernces().setData(
+        switchValue: switchValue,
+        age: age,
+        radioGroupValue: radioGroupValue,
+        poids: poids,
+        activite: activite,
+        taille: taille);
+  }
+
   calculeCalorie() {
     if (isValidate) {
       if (manOrWoman == 1) {
@@ -110,6 +135,7 @@ class DataProvider with ChangeNotifier {
             655.0955 + (9.5634 * poids) + (1.8496 * taille) - (4.6756 * age);
         valeurCalorySport = valeurCalory * activite;
       }
+      setPreferencesData();
     } else {
       valeurCalory = 0;
       valeurCalorySport = 0;

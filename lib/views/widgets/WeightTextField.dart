@@ -9,6 +9,7 @@ class WeightTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.text = context.watch<DataProvider>().poids.toInt().toString();
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
       child: TextField(
